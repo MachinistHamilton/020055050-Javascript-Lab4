@@ -138,9 +138,14 @@ brightnessSlider.addEventListener("input", function() {
 // saturation value is sent to the Hue bridge as part of the command
 // updateLight() is called with the saturation command
 const saturationSlider = document.getElementById("saturation");
+console.log("Saturation slider found:", saturationSlider); // Debug: Check if slider exists
 saturationSlider.addEventListener("input", function() {
     const saturation = this.value;
     console.log("Saturation changed to:", saturation);
+    
+    // Update background saturation using CSS filter
+    html.style.filter = `saturate(${saturation / 254})`;
+    
     const saturationCommand = `{ "sat" : ${saturation}, "on" : true }`;
     updateLight(saturationCommand);
 });
