@@ -133,3 +133,12 @@ brightnessSlider.addEventListener("change", function() {
 
 //step 3
 // slider for saturation control
+// event listener for the saturation slider change
+// saturation value is sent to the Hue bridge as part of the command
+// updateLight() is called with the saturation command
+const saturationSlider = document.getElementById("saturation");
+saturationSlider.addEventListener("change", function() {
+    const saturation = this.value;
+    const saturationCommand = `{ "sat" : ${saturation}, "on" : true }`;
+    updateLight(saturationCommand);
+});
