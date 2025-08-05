@@ -1,0 +1,94 @@
+// STEP 7a: Add the URL for the bridge (use IP from step 2)
+
+const bridge = "http://192.168.1.41"; 
+
+
+
+// STEP 7b: Add a constant for your specific username (from Step 3d response)
+
+const user = "3bXy123abc456myHueApp"; // Example – replace with your real username
+
+
+
+// STEP 7c: Add another constant for your light number (from Step 4b)
+
+const lightNum = "1";
+
+
+
+// STEP 7d: Set method to 'PUT' to send control commands
+
+let method = "PUT";
+
+
+
+// STEP 7e: Build the full RESTful API endpoint for state control
+
+const endpoint = `${bridge}/api/${user}/lights/${lightNum}/state`;
+
+
+
+const html = document.querySelector('html');
+
+const hueSlider = document.getElementById("hue");
+
+
+
+// STEP 9a–9b: Add event listener to slider; send updated color to bulb when slider changes
+
+hueSlider.addEventListener("change", function() {
+
+var newHue = this.value * 1000;
+
+updateScreenColor(newHue);
+
+var commands = '{ "hue" : ' + newHue + ', "sat" : 254, "bri" : 254, "on" : true }';
+
+
+
+// STEP 9b: Call the updateLight() function with new command
+
+updateLight(commands);
+
+}, false);
+
+
+
+// Function that updates background color of the screen based on hue value
+
+function updateScreenColor(newHue){
+
+let cssHue = Math.round(newHue / 48000 * 240); // Maps 0–65535 to CSS hue range (0–240)
+
+let bgCSSValue = `hsl(${cssHue}deg, 100%, 50%)`;
+
+console.log(bgCSSValue); // Debug: Logs color code
+
+html.style.backgroundColor = bgCSSValue;
+
+}
+
+
+
+// STEP 8: Function to update the Hue light with API call
+
+function updateLight(bodyData){
+
+fetch(endpoint, {
+
+method: method,
+
+body: bodyData
+
+})
+
+.then(response => response.json())   // STEP 8b: Parse the response to JSON
+
+.then(data => console.log("Bridge Response:", data)) // Log response for confirmation
+
+.catch(error => console.error("Error:", error));   // Log any network/API errors
+
+}
+	// STEP 8a: Use the fetch() method
+	
+	// STEP 8b: Chain .then after the fetch(), and collect the response from the server (bridge)
