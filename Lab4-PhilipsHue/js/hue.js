@@ -118,15 +118,21 @@ toggleButton.addEventListener("click", function() {
     
 }, false);
 
+
 //step 2
 // Slider for brightness control
 // event listener for the brightness slider change
 // brightness value is sent to the Hue bridge as part of the command
 // updateLight() is called with the brightness command
 const brightnessSlider = document.getElementById("brightness");
+console.log("Brightness slider found:", brightnessSlider); // Debug: Check if slider exists
 brightnessSlider.addEventListener("input", function() {
     const brightness = this.value;
     console.log("Brightness changed to:", brightness);
+    
+    // Update background brightness using CSS filter
+    html.style.filter = `brightness(${brightness / 254})`;
+    
     const brightnessCommand = `{ "bri" : ${brightness}, "on" : true }`;
     updateLight(brightnessCommand);
 });
