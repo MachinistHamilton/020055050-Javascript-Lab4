@@ -90,5 +90,13 @@ body: bodyData
 
 }
 	// STEP 8a: Use the fetch() method
-	
+
+	fetch(endpoint, {
+		method: method,
+		body: bodyData
+	})
+
 	// STEP 8b: Chain .then after the fetch(), and collect the response from the server (bridge)
+
+
+// STEP 10: Look up the Philips Hue API to learn about other ways to work with the Hue lighting products - I hope you had fun!
