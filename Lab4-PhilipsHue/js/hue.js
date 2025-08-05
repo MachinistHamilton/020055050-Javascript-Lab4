@@ -102,6 +102,7 @@ body: bodyData
 // STEP 10: Look up the Philips Hue API to learn about other ways to work with the Hue lighting products - I hope you had fun!
 
 // Toggle light on/off Button
+//lightIsOn variable is used to track the state of the light
 // updateLight() is the API call function used to send commands to the Hue bridge
 const toggleButton = document.getElementById("toggle");
 let lightIsOn = true;
@@ -111,5 +112,4 @@ toggleButton.addEventListener("click", function() {
     const toggleCommand = `{ "on" : ${lightIsOn} }`;
     updateLight(toggleCommand);
     toggleButton.textContent = lightIsOn ? "Turn Off" : "Turn On";
-}
-, false);
+}, false);
