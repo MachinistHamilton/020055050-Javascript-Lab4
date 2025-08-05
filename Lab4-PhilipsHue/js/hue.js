@@ -101,6 +101,10 @@ body: bodyData
 
 // STEP 10: Look up the Philips Hue API to learn about other ways to work with the Hue lighting products - I hope you had fun!
 
+
+// Lab 4 - Philips Hue JavaScript Control
+
+//step 1
 // Toggle light on/off Button
 //lightIsOn variable is used to track the state of the light
 // updateLight() is the API call function used to send commands to the Hue bridge
@@ -114,9 +118,18 @@ toggleButton.addEventListener("click", function() {
     toggleButton.textContent = lightIsOn ? "Turn Off" : "Turn On";
 }, false);
 
-
+//step 2
 // Slider for brightness control
 // event listener for the brightness slider change
 // brightness value is sent to the Hue bridge as part of the command
 // updateLight() is called with the brightness command
 const brightnessSlider = document.getElementById("brightness");
+brightnessSlider.addEventListener("change", function() {
+    const brightness = this.value;
+    const brightnessCommand = `{ "bri" : ${brightness}, "on" : true }`;
+    updateLight(brightnessCommand);
+});
+
+
+//step 3
+// slider for saturation control
