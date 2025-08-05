@@ -89,15 +89,6 @@ body: bodyData
 .catch(error => console.error("Error:", error));   // Log any network/API errors
 
 }
-	// STEP 8a: Use the fetch() method
-
-	fetch(endpoint, {
-		method: method,
-		body: bodyData
-	})
-
-	// STEP 8b: Chain .then after the fetch(), and collect the response from the server (bridge)
-
 
 // STEP 10: Look up the Philips Hue API to learn about other ways to work with the Hue lighting products - I hope you had fun!
 
@@ -108,6 +99,7 @@ body: bodyData
 // Toggle light on/off Button
 //lightIsOn variable is used to track the state of the light
 // updateLight() is the API call function used to send commands to the Hue bridge
+
 const toggleButton = document.getElementById("toggle");
 let lightIsOn = true;
 
@@ -116,6 +108,14 @@ toggleButton.addEventListener("click", function() {
     const toggleCommand = `{ "on" : ${lightIsOn} }`;
     updateLight(toggleCommand);
     toggleButton.textContent = lightIsOn ? "Turn Off" : "Turn On";
+
+    // change bakground color based on light state
+    if (lightIsOn) {
+        html.style.backgroundColor = "white"; // Light on
+    } else {
+        html.style.backgroundColor = "black"; // Light off
+    }
+    
 }, false);
 
 //step 2
@@ -124,8 +124,9 @@ toggleButton.addEventListener("click", function() {
 // brightness value is sent to the Hue bridge as part of the command
 // updateLight() is called with the brightness command
 const brightnessSlider = document.getElementById("brightness");
-brightnessSlider.addEventListener("change", function() {
+brightnessSlider.addEventListener("input", function() {
     const brightness = this.value;
+    console.log("Brightness changed to:", brightness);
     const brightnessCommand = `{ "bri" : ${brightness}, "on" : true }`;
     updateLight(brightnessCommand);
 });
@@ -137,8 +138,9 @@ brightnessSlider.addEventListener("change", function() {
 // saturation value is sent to the Hue bridge as part of the command
 // updateLight() is called with the saturation command
 const saturationSlider = document.getElementById("saturation");
-saturationSlider.addEventListener("change", function() {
+saturationSlider.addEventListener("input", function() {
     const saturation = this.value;
+    console.log("Saturation changed to:", saturation);
     const saturationCommand = `{ "sat" : ${saturation}, "on" : true }`;
     updateLight(saturationCommand);
 });
