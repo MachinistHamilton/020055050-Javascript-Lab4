@@ -113,3 +113,10 @@ toggleButton.addEventListener("click", function() {
     updateLight(toggleCommand);
     toggleButton.textContent = lightIsOn ? "Turn Off" : "Turn On";
 }, false);
+
+
+// Slider for brightness control
+// event listener for the brightness slider change
+// brightness value is sent to the Hue bridge as part of the command
+// updateLight() is called with the brightness command
+const brightnessSlider = document.getElementById("brightness");
